@@ -297,3 +297,44 @@ exports.forgotPassword = async(req,res)=>{
         })
     }
 }
+
+// update userdeatils
+exports.updateUserDetails = async(req,res)=>{
+    const userData= req.user;
+    const userId=req.user.id;
+    console.log(userId);
+   
+    try {
+        const user= await User.findById(userId);
+        //  check whether user exist or not
+        if(!user){
+            console.log('user does not exists');
+            return res.status(400).json({
+                success: false,
+                message:"Invalid credentials"
+            });
+        }
+        // get data from req
+        const {username,bio,firstName,lastName}=req.body;
+        // now update user
+        const updatedUser=await User.findByIdAndUpdate(userId,{
+            username,
+            firstName,
+            lastName,
+            bio,
+
+        },{new:true})
+       console.log(updatedUser);
+        // return res
+        return res.status(200).json({
+            success:true,
+            updatedUser:updatedUser
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message: 'Server Error'
+        })
+    }
+}

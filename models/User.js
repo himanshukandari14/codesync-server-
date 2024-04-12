@@ -42,6 +42,9 @@ const UserSchema= new mongoose.Schema({
             }
         ],
     },
+    bio:{
+         type:String,
+    },
     otp: {
         type: String,
         default: null
