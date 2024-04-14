@@ -23,5 +23,6 @@ router.delete('/deleteCourse/:id', verifyToken, deleteCourse);
 router.get('/course/:id',verifyToken,getCourse);
 router.get('/user/search',searchCourse);
 router.post('/user/updateDetails',verifyToken,updateUserDetails)
+router.delete('/user/deleteaccount',verifyToken,deleteUser);
 
 module.exports=router;
