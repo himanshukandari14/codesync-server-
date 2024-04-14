@@ -23,8 +23,9 @@ const UserSchema= new mongoose.Schema({
         type:String,
         required:true,
     },
-    profilePic:{
+    image:{
          type:String,
+         default:'https://api.dicebear.com/8.x/lorelei/svg'
     },
     posts:{
         type:[

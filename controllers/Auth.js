@@ -45,6 +45,7 @@ exports.register = async(req,res)=>{
         username,
         email,
         password:hashedPassword,
+        image: 'https://api.dicebear.com/8.x/lorelei/svg' // Default image URL
 
     });
      // Send an email to the user
