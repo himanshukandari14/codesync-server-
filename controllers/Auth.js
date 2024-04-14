@@ -198,8 +198,8 @@ exports.getUser = async(req,res)=>{
 }
 // delete user
 exports.deleteUser = async(req,res) =>{
-    const userData= req.user;
     const userId=req.user.id;
+    console.log('userid',userId)
     console.log(userId);
     const user=await User.findById(userId);
 
