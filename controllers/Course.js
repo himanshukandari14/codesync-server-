@@ -13,10 +13,10 @@ exports.createCourse = async(req,res)=>{
     console.log(loggedinUser)
 
     // fetch data
-    const {title,description,user,price,duration,thumbnail}=req.body;
+    const {title,description,price,duration,tags}=req.body;
 
     // validate
-    if(!(title || description || price || duration || thumbnail)){
+    if(!(title || description || price || duration ||tags)){
         return res.status(400).json({msg:"Please enter all fields"});
     }
     try {
@@ -26,12 +26,15 @@ exports.createCourse = async(req,res)=>{
             description,
             price,
             duration,
-            thumbnail,
+            tags,
+            user:loggedinUser._id,
+            thumbnail:"https://i.ytimg.com/vi/eIQh02xuVw4/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC0Wt4SP86a7DGnLPGiyBNfmDqucA",
         });
 
         // add course in user's courses list
         loggedinUser.courses.push(course._id);
         await loggedinUser.save();
+        
 
 
         // res 
@@ -89,7 +92,7 @@ exports.deleteCourse = async(req,res)=>{
 // get alllcourse
 exports.getAllCourse = async(req,res)=>{
     try {
-        const allCourses = await Course.find({});
+        const allCourses = await Course.find({}).populate("user");
         console.log(allCourses);
         return res.status(200).json({
             success:true,
@@ -106,7 +109,8 @@ exports.getCourse = async(req,res)=>{
     const courseId=req.params.id;
 
     try {
-        const course = await Course.findById(courseId);
+        // Fetch course details
+    const course = await Course.findById(courseId).populate('user');
 
         if(!course){
             return res.status(404).json({

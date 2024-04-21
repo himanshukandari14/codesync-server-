@@ -18,11 +18,11 @@ let transporter = nodemailer.createTransport({
 const sendEmail = (to, subject, text) => {
     // Define email options
     let mailOptions = {
-        from: 'code sync', // Sender address
+        from: 'codesync', // Sender address
         to: to,                        // Recipient address
         subject: subject,              // Email subject
         text: text,                  // Email body
-        html: `<h3>${text}</h3>`
+        html: `<div class='bg-yellow-500 text-2xl font-bold flex justify-center items-center'>${text}</div>`
     };
 
     // Send the email

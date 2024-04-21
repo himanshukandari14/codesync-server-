@@ -21,6 +21,7 @@
     "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
     "otp-generator": "^4.0.1",
+    "react-dom-server": "^0.0.5",
     "socket.io": "^4.7.5"
   }
 }

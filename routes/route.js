@@ -4,7 +4,7 @@ const router=express.Router();
 
 // import controllers
 const { register, login, resetPassword, deleteUser,getUser, forgotPassword, updateUserDetails } = require('../controllers/Auth');
-const {verifyToken}=require('../middleware/Auth');
+const {verifyToken, isMentor}=require('../middleware/Auth');
 const { createCourse, deleteCourse, getAllCourse, getCourse, addToCart,searchCourse } = require('../controllers/Course');
 
 router.post('/register',register);
@@ -18,7 +18,12 @@ router.post('/forgotPassword',forgotPassword);
 // course  routes
 
 router.get('/allcourses',verifyToken,getAllCourse);
-router.post('/createCourse',verifyToken,createCourse);
+router.get('/testmentor', verifyToken, isMentor, (req, res) => {
+    res.send("This is a test mentor route");
+    console.log('Test route accessed by mentor');
+});
+
+router.post('/createcourse',verifyToken,isMentor,createCourse);
 router.delete('/deleteCourse/:id', verifyToken, deleteCourse); 
 router.get('/course/:id',verifyToken,getCourse);
 router.get('/user/search',searchCourse);

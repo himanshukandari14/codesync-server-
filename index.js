@@ -16,6 +16,7 @@ app.use(
 
 app.use(express.json()) //for parsing body
 app.use(cookieparser()) //for parsing cookie
+app.use(express.urlencoded({ extended: true }));
 
 
 // listen to port

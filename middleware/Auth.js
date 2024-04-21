@@ -1,4 +1,6 @@
 const jwt=require('jsonwebtoken');
+const { findById } = require('../models/User');
+const User = require('../models/User');
 require('dotenv').config();
 
 const verifyToken = (req, res, next) => {
@@ -31,7 +33,52 @@ const generateToken = (userData) => {
 }
 
 
+// other middleware
+// is student
+// const isStudent= async(req,res,next)=>{
+//     try {
+//         if(req.user.userType !== "student"){
+//             return res.status(401).json({
+//                 success:false,
+//                 message:"this is a protected routes for students only"
+
+//             });
+//             next();
+//         }
+//     } 
+//     catch (error) {
+//         return res.status(500).json({
+//             success:false,
+//             message:'user role cannot be verified try again'
+//         })
+//     }
+// }
+
+// is instructor
+
+// is instructor
+const isMentor = async (req, res, next) => {
+    const  userId= req.user.id;
+    const user=await User.findById(userId);
+    console.log('the user id is =>',userId)
+    try {
+        if (user.userType !== "mentor") {
+            console.log('hello',req.user);
+            return res.status(401).json({
+                success: false,
+                message: "This is a protected route for instructors only"
+            });
+           
+        }
+         
+        next();
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'User role cannot be verified, please try again'
+        });
+    }
+}
 
 
-
- module.exports={verifyToken,generateToken}
+ module.exports={verifyToken,generateToken,isMentor}

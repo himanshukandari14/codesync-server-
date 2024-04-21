@@ -46,6 +46,11 @@ const UserSchema= new mongoose.Schema({
     bio:{
          type:String,
     },
+     userType: {
+        type: String,
+        enum: ['student', 'mentor'], // Define enum values as an array of strings
+        default: 'student' // Set default value
+    },
     otp: {
         type: String,
         default: null

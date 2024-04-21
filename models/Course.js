@@ -11,10 +11,11 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    user: [{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
+        ref:'User',
         required: true
-    }],
+    },
     price: {
         type: Number,
         required: true
@@ -29,6 +30,7 @@ const courseSchema = new mongoose.Schema({
     thumbnail:{
         type:String,
         required:true,
+        default:'https://i.ytimg.com/vi/eIQh02xuVw4/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC0Wt4SP86a7DGnLPGiyBNfmDqucA'
     },
     ratings: {
         type: Number,
@@ -40,7 +42,8 @@ const courseSchema = new mongoose.Schema({
     },
     tags:{
         type:String,
-    }
+        enum:['development','data-science','artificiall-intelligence']
+    },
     
 });
 

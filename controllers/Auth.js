@@ -12,12 +12,12 @@ exports.register = async(req,res)=>{
 
     try {
         // fetch data
-    const {firstName,lastName,username,email,password}=req.body;
+    const {firstName,lastName,username,email,password,userType}=req.body;
 
 
     // validation
 
-    if(!(firstName || lastName || username || email || password)){
+    if(!(firstName || lastName || username || email || password || userType)){
         return res.status(400).json({
             success:false,
             message: "Please provide all the details"
@@ -45,7 +45,8 @@ exports.register = async(req,res)=>{
         username,
         email,
         password:hashedPassword,
-        image: 'https://api.dicebear.com/8.x/lorelei/svg' // Default image URL
+        image: 'https://api.dicebear.com/8.x/lorelei/svg', // Default image URL
+        userType
 
     });
      // Send an email to the user
@@ -184,7 +185,7 @@ exports.getUser = async(req,res)=>{
     const userId=req.user.id;
     console.log(userId);
     try {
-         const user=await User.findById(userId);
+         const user=await User.findById(userId).populate("courses");
 
     return res.status(200).send(user);
     } catch (error) {
